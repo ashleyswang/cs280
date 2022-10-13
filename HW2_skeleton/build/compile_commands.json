@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/cs18/Desktop/HW2_skeleton/build",
+  "command": "/usr/bin/c++   -I/home/cs18/tools/graphics -isystem /usr/include/opencv    -std=gnu++1z -o CMakeFiles/Rasterizer.dir/main.cpp.o -c /home/cs18/Desktop/HW2_skeleton/main.cpp",
+  "file": "/home/cs18/Desktop/HW2_skeleton/main.cpp"
+},
+{
+  "directory": "/home/cs18/Desktop/HW2_skeleton/build",
+  "command": "/usr/bin/c++   -I/home/cs18/tools/graphics -isystem /usr/include/opencv    -std=gnu++1z -o CMakeFiles/Rasterizer.dir/rasterizer.cpp.o -c /home/cs18/Desktop/HW2_skeleton/rasterizer.cpp",
+  "file": "/home/cs18/Desktop/HW2_skeleton/rasterizer.cpp"
+},
+{
+  "directory": "/home/cs18/Desktop/HW2_skeleton/build",
+  "command": "/usr/bin/c++   -I/home/cs18/tools/graphics -isystem /usr/include/opencv    -std=gnu++1z -o CMakeFiles/Rasterizer.dir/Triangle.cpp.o -c /home/cs18/Desktop/HW2_skeleton/Triangle.cpp",
+  "file": "/home/cs18/Desktop/HW2_skeleton/Triangle.cpp"
+}
+]
