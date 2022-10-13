@@ -1,0 +1,54 @@
+CS180/280 Homework 1 Report
+
+------------------------
+Question 1
+------------------------
+The transform matrix rotates a point 270 degrees (3pi/2 rads) about the origin 
+(counterclockwise) and shifts it 2 leftwards and 2 upwards.
+
+The upper left 2x2 matrix [[0 1], [-1 0]] has the form of a rotation matrix 
+with cos(theta) = 0 and sin(theta) = -1 (ie. theta = 270 degrees). The third 
+column acts at the translation, moving x  by -2 (2 left) and y by 2 (2 up).
+
+------------------------
+Question 2
+------------------------
+ 0.707107  0.707107         0
+-0.707107  0.707107         0
+        0         0         1
+
+(0.707107 = 1/sqrt(2))
+
+------------------------
+Question 3
+------------------------
+ 1  0  0 -2
+ 0  1  0  8
+ 0  0  1  3
+ 0  0  0  1
+
+------------------------
+Question 4
+------------------------
+4a: 'Translate to the Origin' Transformation Matrix:
+  1  0 -1
+  0  1 -5
+  0  0  1
+
+4b: 'Scale to Target Rectangle Size' Transformation Matrix:
+  2       0       0
+  0 0.33333       0
+  0       0       1
+
+4c: 'Translate to New Target Position' Transformation Matrix:
+  1 0 2
+  0 1 0
+  0 0 1
+
+4d: Multiplication Result of 3 Transformation Matrices:
+  2        0        0
+  0 0.333333 -1.66667
+  0        0        1
+
+final bottom left: (2,0)
+final upper right: (8,1)

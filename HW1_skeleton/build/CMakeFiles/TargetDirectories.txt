@@ -1,0 +1,3 @@
+/Users/ashleyswang/Documents/ucsb/cs280/hw/HW1_skeleton/build/CMakeFiles/assignment1.dir
+/Users/ashleyswang/Documents/ucsb/cs280/hw/HW1_skeleton/build/CMakeFiles/edit_cache.dir
+/Users/ashleyswang/Documents/ucsb/cs280/hw/HW1_skeleton/build/CMakeFiles/rebuild_cache.dir
