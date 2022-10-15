@@ -32,17 +32,41 @@ Eigen::Matrix4f get_view_matrix(Eigen::Vector3f eye_pos)
 
 Eigen::Matrix4f get_model_matrix(float rotation_angle)
 {
-    // TODO: return identity matrix
-    Eigen::Matrix4f model;
-
+    Eigen::Matrix4f model = Eigen::Matrix4f::Identity();
     return model;
 }
 
 Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float zNear, float zFar)
 {
-    // TODO: return the projection matrix based on the parameters
-    Eigen::Matrix4f projection;
+    Eigen::Matrix4f projection = Eigen::Matrix4f::Identity();
+    Eigen::Matrix4f persp_to_ortho, translate, scale;
+    // change to negative for -z coordinates
+    float n = -zNear;
+    float f = -zFar;
+    persp_to_ortho <<    n,  0.0,   0.0,      0.0,
+                       0.0,    n,   0.0,      0.0,
+                       0.0,  0.0,  n + f,  -n * f,                   
+                       0.0,  0.0,   1.0,      0.0;
 
+    // define frustum
+    float t = abs(n) * tan(eye_fov * MY_PI / 180.0 / 2);
+    float r = aspect_ratio * t;
+    float l = -r;
+    float b = -t;
+
+    // shift box to center
+    translate <<  1.0,  0.0,  0.0, -(r + l) / 2.0,
+                  0.0,  1.0,  0.0, -(t + b) / 2.0,
+                  0.0,  0.0,  1.0, -(n + f) / 2.0,
+                  0.0,  0.0,  0.0,  1.0;
+
+    // scale box to view
+    scale <<  2.0 / (r - l),            0.0,            0.0,  0.0,
+                        0.0,  2.0 / (t - b),            0.0,  0.0,
+                        0.0,            0.0,  2.0 / (n - f),  0.0,
+                        0.0,            0.0,            0.0,  1.0;
+
+    projection = scale * translate * persp_to_ortho;
     return projection;
 }
 
