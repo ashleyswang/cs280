@@ -133,7 +133,7 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t) {
             if (!insideTriangle(x + 0.5, y + 0.5, t.v)) continue;
 
             // get interpolated z value
-            auto[alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);
+            auto[alpha, beta, gamma] = computeBarycentric2D(t.v, x, y);
             float w_reciprocals = 1.0/(alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
             float z_interpolated = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
             z_interpolated *= w_reciprocals;
@@ -144,7 +144,7 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t) {
             
             // set current pixel to the color of the triangle & update buffer
             Eigen::Vector3f pixel(x, y, 1.0f);
-            sets_pixel(t.getsColor(), pixel);
+            sets_pixel(t.getsColor() * 255, pixel);
             depth_buf[i] = z_interpolated;
         }
     }
