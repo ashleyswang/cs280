@@ -46,12 +46,12 @@ auto to_vec4(const Eigen::Vector3f& v3, float w = 1.0f)
 }
 
 
-static bool insideTriangle(int x, int y, const Vector3f* _v)
+static bool insideTriangle(float x, float y, const Vector3f* _v)
 {   
     // check if the point (x, y) is inside the triangle represented by _v[0], _v[1], _v[2]
-    ab = (y - _v[0].y()) * (_v[1].x() - _v[0].x()) - (x - _v[0].x()) * (_v[1].y() - _v[0].y());
-    bc = (y - _v[1].y()) * (_v[2].x() - _v[1].x()) - (x - _v[1].x()) * (_v[2].y() - _v[1].y());
-    ca = (y - _v[2].y()) * (_v[0].x() - _v[2].x()) - (x - _v[2].x()) * (_v[0].y() - _v[2].y());
+    auto ab = (y - _v[0].y()) * (_v[1].x() - _v[0].x()) - (x - _v[0].x()) * (_v[1].y() - _v[0].y());
+    auto bc = (y - _v[1].y()) * (_v[2].x() - _v[1].x()) - (x - _v[1].x()) * (_v[2].y() - _v[1].y());
+    auto ca = (y - _v[2].y()) * (_v[0].x() - _v[2].x()) - (x - _v[2].x()) * (_v[0].y() - _v[2].y());
     return ab >= 0 && bc >= 0 && ca >= 0;
 }
 
@@ -120,10 +120,6 @@ void rst::rasterizer::draw(pos_buf_id pos_buffer, ind_buf_id ind_buffer, col_buf
 //Screen space rasterization
 void rst::rasterizer::rasterize_triangle(const Triangle& t) {
     auto v = t.toVector4();
-    
-    std::cout << "v[0]: " << v[0] << std::endl;
-    std::cout << "v[1]: " << v[1] << std::endl;
-    std::cout << "v[2]: " << v[2] << std::endl;
 
     // find bounding box of current triangle
     float minx = std::min({v[0].x(), v[1].x(), v[2].x()});
@@ -147,8 +143,8 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t) {
             if (z_interpolated >= depth_buf[i]) continue;
             
             // set current pixel to the color of the triangle & update buffer
-            Eigen::Vector3f p(x, y, 1.0);
-            sets_pixel(t.getsColor(), p);
+            Eigen::Vector3f pixel(x, y, 1.0f);
+            sets_pixel(t.getsColor(), pixel);
             depth_buf[i] = z_interpolated;
         }
     }
