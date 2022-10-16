@@ -45,7 +45,6 @@ auto to_vec4(const Eigen::Vector3f& v3, float w = 1.0f)
     return Vector4f(v3.x(), v3.y(), v3.z(), w);
 }
 
-
 static bool insideTriangle(float x, float y, const Vector3f* _v)
 {   
     // check if the point (x, y) is inside the triangle represented by _v[0], _v[1], _v[2]
