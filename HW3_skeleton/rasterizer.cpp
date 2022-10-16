@@ -12,6 +12,8 @@
 #include "rasterizer.hpp"
 #include <opencv2/opencv.hpp>
 #include <math.h>
+#include <iostream>
+#include <typeinfo>
 
 
 rst::pos_buf_id rst::rasterizer::load_positions(const std::vector<Eigen::Vector3f> &positions)
@@ -118,10 +120,10 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t) {
     auto v = t.toVector4();
     
     // find bounding box of current triangle
-    float minx = std::min(v[0].x(), v[1].x(), v[2].x());
-    float maxx = std::max(v[0][0], v[1][0], v[2][0]);
-    float miny = std::min(v[0][1], v[1][1], v[2][1]);
-    float maxy = std::max(v[0][1], v[1][1], v[2][1]);
+    float minx = std::min({v[0].x(), v[1].x(), v[2].x()});
+    float maxx = std::max({v[0].x(), v[1].x(), v[2].x()});
+    float miny = std::min({v[0].y(), v[1].y(), v[2].y()});
+    float maxy = std::max({v[0].y(), v[1].y(), v[2].y()});
 
     // iterate through the pixel and find if the current pixel is inside the triangle
     // you should implement and use the insideTriangle function above
