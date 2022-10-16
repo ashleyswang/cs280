@@ -43,10 +43,10 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float z
     // change to negative for -z coordinates
     float n = -zNear;
     float f = -zFar;
-    persp_to_ortho <<    n,  0.0,   0.0,      0.0,
-                       0.0,    n,   0.0,      0.0,
+    persp_to_ortho <<    n,  0.0,    0.0,     0.0,
+                       0.0,    n,    0.0,     0.0,
                        0.0,  0.0,  n + f,  -n * f,                   
-                       0.0,  0.0,   1.0,      0.0;
+                       0.0,  0.0,    1.0,     0.0;
 
     // define frustum
     float t = abs(n) * tan(eye_fov * MY_PI / 180.0 / 2);
