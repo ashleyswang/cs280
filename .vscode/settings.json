@@ -89,6 +89,19 @@
     "streambuf": "cpp",
     "system_error": "cpp",
     "type_traits": "cpp",
-    "typeinfo": "cpp"
+    "typeinfo": "cpp",
+    "clocale": "cpp",
+    "codecvt": "cpp",
+    "compare": "cpp",
+    "typeindex": "cpp",
+    "variant": "cpp",
+    "*.tcc": "cpp",
+    "concepts": "cpp",
+    "memory_resource": "cpp",
+    "source_location": "cpp",
+    "numbers": "cpp",
+    "semaphore": "cpp",
+    "stop_token": "cpp",
+    "cinttypes": "cpp"
   }
 }
