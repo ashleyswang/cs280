@@ -2,11 +2,13 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
+#define NUM_POINTS 4
+
 std::vector<cv::Point2f> control_points;
 
 void mouse_handler(int event, int x, int y, int flags, void *userdata) 
 {
-    if (event == cv::EVENT_LBUTTONDOWN && control_points.size() < 4) 
+    if (event == cv::EVENT_LBUTTONDOWN && control_points.size() < NUM_POINTS) 
     {
         std::cout << "Left button of the mouse is clicked - position (" << x << ", "
         << y << ")" << '\n';
@@ -37,14 +39,25 @@ cv::Point2f lerp(const cv::Point2f& start, const cv::Point2f& end, float t) {
 cv::Point2f recursive_bezier(const std::vector<cv::Point2f> control_points, float t) 
 {
     // TODO: use de Casteljau's algorithm to find all points on the Bezier curve
-    return cv::Point2f(0.f, 0.f);// comment this line before your implementation 
+    if (control_points.size() == 1) return control_points[0];
+
+    std::vector<cv::Point2f> computed_points;
+    for (int i = 1; i < control_points.size(); i++) {
+        auto p0 = control_points[i - 1];
+        auto p1 = control_points[i];
+        computed_points.emplace_back((1 - t) * p0 + t * p1);
+    }
+    return recursive_bezier(computed_points, t);
 }
 
 void bezier(const std::vector<cv::Point2f> &control_points, cv::Mat &window) 
 {
     // TODO: Iterate through all t = 0 to t = 1 with small steps, and call de Casteljau's 
     // recursive Bezier algorithm.
-
+    for (float t = 0.0; t <= 1.0; t += 0.001){
+        auto p = recursive_bezier(control_points, t);
+        window.at<cv::Vec3b>(p.y, p.x)[1] = 255;
+    }
 }
 
 int main() 
@@ -63,7 +76,7 @@ int main()
             cv::circle(window, point, 3, {255, 255, 255}, 3);
         }
 
-        if (control_points.size() == 4) 
+        if (control_points.size() == NUM_POINTS) 
         {
             naive_bezier(control_points, window);
             bezier(control_points, window);
