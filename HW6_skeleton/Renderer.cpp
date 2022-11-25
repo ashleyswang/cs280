@@ -266,10 +266,14 @@ void Renderer::Render(const Scene& scene)
             // after you have scaled x and y to [-1, 1] to avoiding getting upside-down results.
             // Also, don't forget to multiply both of them with the variable *scale*, and
             // x (horizontal) variable with the *imageAspectRatio*
-            // Don't forget to normalize this direction!
             // Finallly store the color in the corresponding pixel of the framebuffer
-            // float x;
-            // float y;
+            float x = (2 * (i + 0.5) / scene.width - 1) * scale * imageAspectRatio;
+            float y = (2 * (j + 0.5) / scene.height - 1) * scale;
+            
+            // Don't forget to normalize this direction!
+            Vector3f dir = Vector3f(x, -y, -1);
+            dir = normalize(dir);
+            framebuffer[m++] = castRay(eye_pos, dir, scene, 0);
         }
         UpdateProgress(j / (float)scene.height);
     }
