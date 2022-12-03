@@ -85,16 +85,25 @@ class Bounds3
     }
 
     inline bool IntersectP(const Ray& ray, const Vector3f& invDir,
-                           const std::array<int, 3>& dirisNeg) const;
+                           const std::array<int, 3>& dirIsNeg) const;
 };
 
 inline bool Bounds3::IntersectP(const Ray& ray, const Vector3f& invDir,
                                 const std::array<int, 3>& dirIsNeg) const
 {
     // TODO test if ray bound intersects
-    // invDir is the inverse direction. You can use dirisNeg for min and max calculation. 
-    // But if you have your own way of calculating min and max you do not necessarily need to use these parameters.    
-    return false; //comment this line before implementation
+    // invDir is the inverse direction. You can use dirIsNeg for min and max calculation. 
+    // But if you have your own way of calculating min and max you do not necessarily need to use these parameters.
+    float t_min_x = ((dirIsNeg[0] ? pMin.x : pMax.x) - ray.origin.x) * invDir.x;
+    float t_max_x = ((dirIsNeg[0] ? pMax.x : pMin.x) - ray.origin.x) * invDir.x;
+    float t_min_y = ((dirIsNeg[1] ? pMin.y : pMax.y) - ray.origin.y) * invDir.y;
+    float t_max_y = ((dirIsNeg[1] ? pMax.y : pMin.y) - ray.origin.y) * invDir.y;
+    float t_min_z = ((dirIsNeg[2] ? pMin.z : pMax.z) - ray.origin.z) * invDir.z;
+    float t_max_z = ((dirIsNeg[2] ? pMax.z : pMin.z) - ray.origin.z) * invDir.z;
+
+    float t_in = std::max(t_min_x, std::max(t_min_y, t_min_z));
+    float t_out = std::min(t_max_x, std::min(t_max_y, t_max_z));
+    return t_in < t_out;
 }
 
 inline Bounds3 Union(const Bounds3& b1, const Bounds3& b2)
